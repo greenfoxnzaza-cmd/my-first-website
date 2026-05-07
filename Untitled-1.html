@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AsujinotFound Project v2</title>
+    <style>
+        /* --- 1. Global Styles --- */
+        :root {
+            --primary-color: #2ecc71;
+            --dark-bg: #1a1a1a;
+            --light-bg: #f4f4f4;
+            --card-white: #ffffff;
+            --transition: 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Kanit', sans-serif; /* แนะนำให้ใช้ Font Kanit จะดูสวยมากครับ */
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: #333;
+            line-height: 1.6;
+            transition: var(--transition);
+        }
+
+        /* --- 2. Navigation --- */
+        nav {
+            background: #222;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover { color: var(--primary-color); }
+
+        /* --- 3. Hero Section --- */
+        .hero {
+            height: 50vh;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+
+        /* --- 4. Interactive Section (To-Do List) --- */
+        .interactive-section {
+            padding: 50px 5%;
+            background: white;
+            text-align: center;
+        }
+
+        .input-group {
+            margin: 20px 0;
+        }
+
+        input[type="text"] {
+            padding: 12px;
+            width: 300px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .btn-add {
+            padding: 12px 25px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        #todoList {
+            max-width: 400px;
+            margin: 20px auto;
+            text-align: left;
+            list-style: none;
+        }
+
+        .todo-item {
+            background: #f9f9f9;
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        /* --- 5. Dark Mode Logic --- */
+        body.dark-mode {
+            background-color: var(--dark-bg);
+            color: white;
+        }
+
+        body.dark-mode .interactive-section {
+            background-color: #222;
+        }
+
+        body.dark-mode .todo-item {
+            background-color: #333;
+            color: white;
+        }
+    </style>
+</head>
+<body id="mainBody">
+
+    <nav>
+        <div class="logo">🚀 ASUJI.CODE</div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><button onclick="toggleDarkMode()" id="modeBtn" style="cursor:pointer; padding: 5px 10px;">🌙 Dark Mode</button></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <h1>JavaScript Workshop</h1>
+        <p>ยินดีด้วยครับ คุณก้าวข้ามพื้นฐานมาแล้ว!</p>
+    </header>
+
+    <section class="interactive-section">
+        <h2>📌 สิ่งที่ต้องทำวันนี้</h2>
+        <div class="input-group">
+            <input type="text" id="taskInput" placeholder="พิมพ์งานที่ต้องทำ...">
+            <button class="btn-add" onclick="addTask()">เพิ่มงาน</button>
+        </div>
+        <ul id="todoList">
+            </ul>
+    </section>
+
+    <script>
+       // 1. ทุกครั้งที่เปิดหน้าเว็บ ให้ไปดึงข้อมูลเก่ามาโชว์ก่อน
+window.onload = function() {
+    loadTasks();
+};
+
+function addTask() {
+    const input = document.getElementById('taskInput');
+    const list = document.getElementById('todoList');
+
+    if (input.value.trim() === "") return;
+
+    createTaskElement(input.value);
+    saveTasks(); // <--- เพิ่มตรงนี้: บันทึกทุกครั้งที่เพิ่มงาน
+    input.value = "";
+}
+
+// ฟังก์ชันสร้าง UI ของงาน (แยกออกมาเพื่อให้ใช้ซ้ำได้)
+function createTaskElement(text) {
+    const list = document.getElementById('todoList');
+    const li = document.createElement('li');
+    li.className = 'todo-item';
+    li.innerHTML = `
+        <span>✅ ${text}</span>
+        <button onclick="this.parentElement.remove(); saveTasks();" style="color:red; background:none; border:none; cursor:pointer;">ลบ</button>
+    `;
+    list.appendChild(li);
+}
+
+// 2. ฟังก์ชันบันทึกข้อมูลลงลิ้นชัก (LocalStorage)
+function saveTasks() {
+    const tasks = [];
+    // ไปดึงข้อความจากทุก <li> ที่มีอยู่ในหน้าเว็บตอนนี้
+    document.querySelectorAll('.todo-item span').forEach(span => {
+        tasks.push(span.innerText.replace('✅ ', ''));
+    });
+    // แปลง Array เป็นข้อความ JSON แล้วเซฟลงชื่อ 'myTasks'
+    localStorage.setItem('myTasks', JSON.stringify(tasks));
+}
+
+// 3. ฟังก์ชันโหลดข้อมูลจากลิ้นชัก
+function loadTasks() {
+    const savedData = localStorage.getItem('myTasks');
+    if (savedData) {
+        const tasks = JSON.parse(savedData); // แปลงข้อความกลับเป็น Array
+        tasks.forEach(task => createTaskElement(task));
+    }
+}
+
+// ฟังก์ชันสลับโหมด (เหมือนเดิม)
+function toggleDarkMode() {
+    const body = document.getElementById('mainBody');
+    const btn = document.getElementById('modeBtn');
+    body.classList.toggle('dark-mode');
+    btn.innerText = body.classList.contains('dark-mode') ? "☀️ Light Mode" : "🌙 Dark Mode";
+}
+    </script>
+
+</body>
+</html>
