@@ -1,242 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aeknarin</title>
-<!-- for element inline and list 
-    <style>
-        table, th, td {
-            border: 1px solid black;
-            border-collapse:collapse ;
-        }
-        ul {
-            list-style-type: circle;
-        }
-
-        div{
-            background-color: red;
-        }
-        a{
-            background-color: burlywood;
-        }
-    </style>
--->
-<!-- for อะไรไม่รู็ลืม
-    <style>
-        .box{
-            background-color: black;
-            color: aliceblue;
-            margin: 10px;
-            padding: 20px;
-        }
-        .center{
-            text-align: center;
-        }
-        #myId{
-            width: 500px;
-            height: 300px;
-            background-color: brown;
-            color: aliceblue;
-        }
-    </style>
--->
-<!--senmatics element
-    <style>
-        body {
-            width: 500px;
-            margin: 0 auto;
-        }
-        header{
-            height: 50px;
-            background-color: aqua;
-        }
-        nav{
-            height: 25px;
-            background-color: blueviolet;
-        }
-        section{
-            float: left;
-            height: 180px;
-            width: 100px;
-            background-color: red;
-        }
-        aside{
-            height: 100px;
-            background-color: brown;
-        }
-        footer{
-            clear: both;
-            height: 180px;
-            width: 100px;
-            background-color: pink;
-        }
--->
-    </style>
-
-
-</head>
-<body>
-<!-- heading and paragraph tag 
+    <title>My Mission</title>
     
-    <h1>headind 1</h1>
-    <h2>headind 2</h2>
-    <h3>headind 3</h3>
-    <h4>headind 4</h4>
-    <p>my name is aomsin </p>
-    <i>i am 24 years old </i>
-    <i>my name is aomsin</i>
-    <br>
-    <strong>my name is aomsin</strong>
-    <br>
-    <em>aek</em>
-    <br>
-    <mark>narin</mark>
-    <br>
-    <small>nil</small>
-    <del>tala</del><br>
-    <ins>0956518735</ins><br>
-    <b>name</b>
-    <sub>aomsin</sub>
-    <sup>asuji</sup>
+    <link rel="stylesheet" type="text/css" href="./style.css">
+</head>
+<body id="mainBody">
 
--->
+    <div class="app-wrapper">
+        
+        <div class="container">
+            <header>
+                <div class="logo-section">
+                    <span class="icon">🚀</span>
+                    <h2>My Mission</h2>
+                </div>
+                <button id="modeBtn" class="glass-button" onclick="toggleDarkMode()">
+                    ✨ Switch Theme
+                </button>
+            </header>
+            
+            <div class="main-content">
+                <div class="input-box">
+                    <input type="text" id="taskInput" placeholder="เพิ่มภารกิจใหม่ของคุณ...">
+                    <button id="add-btn">
+                        <span>+</span>
+                    </button>
+                </div>
 
-<!-- Link and image 
+                <div class="status-bar">
+                    <span>ภารกิจทั้งหมด</span>
+                    <span id="taskCount">0</span>
+                </div>
 
-    <a title="go to youtube" href="https://www.youtube.com/" target="_blank">click</a>
-    <a href="https://www.google.com/" target="_blank">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBKfVmlgAp-zqbicX0QugDKutu2kC4OQLKdg&s" alt="gundam">
-    </a>
-    <img src="cocktail.jpg" alt=""> 
+                <ul id="taskList">
+                    </ul>
+            </div>
+        </div>
 
--->
-
-<!-- table 
-
-<table> 
-        <tr> 
-            <th>first name</th>
-            <th>last name</th>
-            <th>age</th>
-        </tr>
-        <tr>
-            <td>Aeknarin</td>
-            <td>Niltala</td>
-            <td>19</td>
-        </tr>
-    </table>
-
--->
-
-<!-- List 
-    <ul>
-        <li>List item 1</li>
-        <li>List item 2</li>
-        <li>List item 3</li>
-        <li>List item 4</li>
-        <li>List item 5</li>
-    </ul>
-
-    <ol>
-        <li>List item 1</li>
-        <li>List item 2</li>
-        <li>List item 3</li>
-        <li>List item 4</li>
-        <li>List item 5</li>
-    </ol>
--->
-
-<!-- Form and input 
-    <form >
-        <fieldset>
-            <legend>
-                register form
-            </legend>
-            <label for="firstname">firstname</label>
-            <input type="text" placeholder="Enter your first name...">
-            <br>
-            <label for="lastname">lastname</label>
-            <input type="text" placeholder="Enter your last name...">
-            <br>
-            <label for="gender">select gender</label>
-            <br>
-            <input type="radio" name="gender" value="male" checked > Male
-            <input type="radio" name="gender" value="male"  > Female
-            <br>
-            <input type="checkbox" value="value1" name="value1"> Checkbox1
-            <input type="checkbox" value="value2" name="value2"> Checkbox2
-            <input type="checkbox" value="value3" name="value3"> Checkbox3
-            <br>
-            <input type="submit" value="submit">
-        </fieldset>
-
-    </form>
--->
-
-<!-- block level element and inline
-    <div>
-        This is a block element
-    </div>
-    <div>
-        This is a block element
     </div>
 
-    <a href="#">This is a inline elements</a>
-    <a href="#">This is a inline elements</a>
-    <a href="#">This is a inline elements</a>
---> 
-
-<!-- classses and id 
-    <div class="box">
-        <h2>This is a box 1</h2>
-        <p>test 1</p>
-    </div>
-    <div class="box center">
-        <h2>This is a box 2</h2>
-        <p>test 2</p>
-    </div>
-    <div class="box">
-        <h2>This is a box 3</h2>
-        <p>test 3</p>
-    </div>
-    <p class="box" >
-        aeknarin niltala
-    </p>
-
-    <div id="myId">
-        This is id
-    </div>
--->
-
-<!-- iframe 
-    <iframe src="iframe.html" width="600" height="600" frameborder="10"></iframe>
-    <br>
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/7MeQxBqchNU?si=g_3xkYekalLLgtYN" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
--->
-
-<!--HTML Entities 
-    <p>
-        this is how to use html entiity : example &lt; p &gt;
-    </p>
--->
-
-<!--sematics element 
-    <header>
-        header
-    </header>
-    <nav>
-        nav
-    </nav>
-    <section>
-        section
-    </section>
-    <aside>
-        aside
-    </aside>
-    <footer>
-        footer
-    </footer>
--->
+    <script src="script.js"></script>
 </body>
 </html>

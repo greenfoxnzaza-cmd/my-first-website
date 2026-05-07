@@ -1,0 +1,53 @@
+/* style.css */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: #0f172a; /* สีเข้ม */
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    background: #1e293b;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    width: 350px;
+    text-align: center;
+}
+
+input {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    margin-bottom: 10px;
+}
+
+button {
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background: #6366f1;
+    color: white;
+}
+/* เมื่อ JavaScript สั่งเติมคลาส dark-mode ให้ Body */
+body.dark-mode {
+    background: #f1f5f9 !important; /* เปลี่ยนเป็นพื้นหลังสว่าง */
+    color: #1e293b !important; /* เปลี่ยนตัวหนังสือเป็นสีเข้ม */
+}
+
+body.dark-mode .container {
+    background: white !important;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+body.dark-mode input[type="text"] {
+    background: #f8fafc;
+    color: #0f172a;
+    border: 1px solid #cbd5e1;
+}
